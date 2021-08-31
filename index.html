@@ -4,28 +4,57 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script></script>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script defer type="module" src="src/main.ts"></script>
     <title>Sol System Trivia</title>
   </head>
   <body>
+    <nav>
+
+    </nav>
     <header>
       
     </header>
     <div class="container" id="game-container">
-    
+      <!-- LANDING PAVE DIV -->
+      <div class="subcontainer" id="landing-container">
+        <div class="subcontainer-header">
+          <h3 id="page-title-text">Sol System Trivia</h3>
+        </div>
+        <div class="subcontainer-body">
+          <img src="" alt="">
+          <div id="instructions">
+            How to Play
+            <ul>
+              <li>Select Game Length</li>
+              <li>Press 'Start Game'</li>
+              <li>When it's yoru turn, select an answer.</li>
+              <li>Press Submit</li>
+              <li>Pass Device to Your Opponent</li>
+              <li>Review Answer Together</li>
+              <li>Continue Until Game Ends</li>
+            </ul>
+          </div>
+          <div>
+            <label for="game-length" id="length-label" >Max. 20</label>
+            <input type="number" name="game-length" id="game-length" value="20">
+          </div>
+          <button id="start-game">Start Game</button>
+        </div>
+
+      </div>
 
       <!-- QUESTION DIV -->
-      <div style="display: none" class="subcontainer" id="question-container" >
+      <div class="subcontainer" id="question-container" >
         <div class="active-player">
 
         </div>
         <div class="question-div">
-          <div class="question-text" >
+          <div class="subcontainer-header" >
             <h3 id="question-text">A question here</h3>
           </div>
-          <div class="options-div">
+          <div class="subcontainer-body">
             <div>
               <input type="radio"  name="answer" value="0" checked>
               <label for="0" id="answer0">Answer 1</label>
@@ -58,7 +87,7 @@
 
       <!-- ANSWER DIV -->
       <div class="subcontainer" id="answer-container" style="display: none">
-        <div class="question-text" >
+        <div class="subcontainer-header" >
           <h3 id="answer-question">A question here</h3>
         </div>
         <div id="player-status">
@@ -71,7 +100,7 @@
         
         </div>
 
-        <img id="answer-image" src="">
+        <img class="subcontainer-image" id="answer-image" src="">
 
         <div class="answer-text">
           <h3 id="answer-text">Answer Here</h3>
@@ -85,8 +114,31 @@
 
       <!-- GAME OVER CONTENT -->
       <div class="subcontainer" id="game-over-container">
+        <div class="subcontainer-header" >
+          <h3 id="winner-text">Winning Player</h3>
+        </div>
+        <div id="player-scores">
+          <div>
+            <h3 class="player-one-score"></h3>
+          </div>
+          <div>
+            <h3 class="player-two-score"></h3>
+          </div>
+        
+        </div>
 
+        <img class="subcontainer-image" id="game-over-image" src="src/earthfromApollo15.jpg" alt="" >
 
+        <div class="section" id="score-breakdown">
+          <div id="player-one-breakdown">
+
+          </div>
+          <div id="player-two-breakdown">
+
+          </div>
+        
+        </div>
+        
       </div>
     </div>
   </body>

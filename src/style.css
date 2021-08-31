@@ -6,10 +6,11 @@ body{
 .container{
   background-color: #262626;
 
-  width: 50%;
+  width: 90%;
   border: 5px solid darkgray;
   border-radius: 10px;
   padding:20px;
+  margin: auto;
 }
 
 .subcontainer{
@@ -18,9 +19,20 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
 }
 
-#question-container{
+.subcontainer-header{
+  align-items: center;
+  align-content: center;
+}
+
+.subcontainer-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 
 }
 

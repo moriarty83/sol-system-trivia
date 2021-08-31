@@ -1,5 +1,10 @@
 import './style.css'
 
+$("#question-container").hide();
+$("#answer-container").hide();
+$("#game-over-container").hide();
+$("#start-game").hide();
+
 interface Question {
   fields: {
     question: string;
@@ -30,6 +35,9 @@ let triviaData:any;
 /////////////////////////
 // HTML Variables
 /////////////////////////
+// Landing Page HTML
+const $landingContainer:JQuery = $("#landing-container")
+
 // Question Section HTML
 const $questionContainer:JQuery = $("#question-container")
 const $questionText:JQuery = $("#question-text");
@@ -44,11 +52,24 @@ const $playerTwoOutcome:JQuery = $("#player-two-outcome");
 const $answerImage:JQuery = $("#answer-image");
 const $answerText:JQuery = $("#answer-text");
 const $answerBlurb:JQuery = $("#answer-blurb");
-/////////////////////////
-// Question Variables
-/////////////////////////
-let currentQuestion:Question;
 
+// Game Over Section HTML
+const $gameOverContainer:JQuery = $("#game-over-container")
+const $winnerText:JQuery = $("#winner-text")
+const $playerOneScore:JQuery = $("#player-one-score")
+const $playerTwoScore:JQuery = $("#player-two-score")
+const $gameOverImage:JQuery = $("#game-over-image")
+const $playerOneBreakdown:JQuery = $("#player-one-breakdown")
+const $playerTwoBreakdown:JQuery = $("#player-two-breakdown")
+
+
+
+/////////////////////////
+// Game Manager Variables
+/////////////////////////
+let gameLength:number = 20;
+let questions:Question[];
+let currentQuestion:Question;
 // Stores correct answer index
 const answerKey:number[] = Array<number>(20);
 // Array that is shuffled to randomize loction of correct answer.
@@ -62,6 +83,9 @@ let questionCount:number = 0;
 /////////////////////////
 // A 2x20 array for both players, scores stored for each question.
 const playerScore:number[][] = [new Array<number>(2), new Array<number>(20)]
+// Total Score Array for both Players
+const totalScores:number[] = [0, 0];
+
 // Tracks which player is active
 let activePlayer:number = 0;
 // Tracks to see if both player have answered current question.
@@ -72,6 +96,11 @@ let answerSubmitted:Array<boolean> = [false, false];
 /////////////////////////
 let answerURL:string;
 
+/////////////////////////
+// LANDING PAGE SECTION
+/////////////////////////
+//#region 
+// Get questions from API.
 $.ajax({
   url: `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${token}`
 }).then(function (data) {
@@ -79,31 +108,34 @@ $.ajax({
   // Renders weather data on page.
   console.log(triviaData.items[0]);
   triviaData = data;
-  startGame();
-  
+  questions = triviaData.items;  
+  $("#start-game").fadeIn();
 }, function (error) {
   console.log('bad request: ', error);
 });
 
-
-
 const startGame = () => {
+  gameLength = +$("#game-length").val()!;
+  shuffle(questions);
   activePlayer = 0;
   answerSubmitted.forEach(element => 
     {
     element = false;
     });
   questionCount = 0;
-  $questionContainer.css('display', 'flex')
+  $landingContainer.fadeOut();
   displayActivePlayer();
   askQuestion();
+  setTimeout(function(){$questionContainer.fadeIn()}, 1000)
 }
 
+$("#start-game").on('click', startGame)
 
+//#endregion
 //////////////////////////////////
 // Question Card Population Section
 //////////////////////////////////
-
+//#region 
 // Fisher-Yates (aka Knuth) Shuffle 
 // Thanks to coolaj86 on Stack Overflow 
 // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
@@ -123,8 +155,6 @@ function shuffle(array:Array<any>) {
   }
   return array;
 }
-
-
 
 // Assigns value to answer key for scorekeeping purposes.
 function populateAnswerKey(questionIndex:number){
@@ -166,13 +196,11 @@ function askQuestion(){
   console.log(currentQuestion);
   console.log(triviaData)
 }
-
-
-
+//#endregion
 ////////////////////////
 // Active player functions
 ////////////////////////
-
+//#region 
 // Updates Active Player
 function updateActivePlayer(){
   activePlayer = (activePlayer==0) ? (activePlayer = 1) : (activePlayer=0);
@@ -189,15 +217,11 @@ function displayActivePlayer(){
     $(".active-player").text("Player 2 Turn")
   }
 }
-
-
-
-
-
+//#endregion
 //////////////////////////////////
 // Answer Submission Section
 //////////////////////////////////
-
+//#region 
 // Takes answer number as argument, compares with answer key.
 // Then sets score for that round in the playerScore array.
 const checkAnswer = (playerAnswer:number) => 
@@ -243,10 +267,11 @@ $("#submit-button").on('click', function(event){
   checkAnswer($answer);
 })
 
-
+//#endregion
 //////////////////////////////////
 // DISPLAY ANSWER SECTION
 //////////////////////////////////
+//#region 
 const fillAnswerText = function (playerIndex:number){
   //Player index should be 0 or 1.
   if(playerScore[playerIndex][questionCount] === 0){
@@ -260,12 +285,22 @@ const fillAnswerText = function (playerIndex:number){
   }
 }
 
-const getImageURL = function(){
-  triviaData.data
+const sumScores = function(){
+  for (let i = 0; i < playerScore.length; i++) {
+    totalScores[i]=0;
+    for(let score of playerScore[i]){
+      if(score !== undefined){
+        console.log(score);
+        totalScores[i] = totalScores[i] + score;
+      }
+    }
+    console.log("score: " + totalScores[i])
+  }
 }
 
 
 const showAnswer = function() {
+  sumScores();
   // Hide question HTML, show Answer HTML
   $questionContainer.fadeOut();
   // $questionContainer.css("display","none");
@@ -278,10 +313,11 @@ const showAnswer = function() {
   $playerTwoOutcome.text(fillAnswerText(1));
   console.log("imageURL = " + currentQuestion.imageURL);
   $answerImage.attr('src', currentQuestion.imageURL!)
-  $answerText.text('Answer' + currentQuestion.fields.correctAnswer)
+  $answerText.text('Answer: ' + currentQuestion.fields.correctAnswer)
   $answerBlurb.text(currentQuestion.fields.blurb)
 }
 
+// If game isn't over, reeenters question phase.
 const nextRound = function(){
   $answerContainer.css("display","none");
   for (let i = 0; i < answerSubmitted.length; i++) {
@@ -294,16 +330,78 @@ const nextRound = function(){
 }
 
 const proceed = function() {
-  if(questionCount < 20){  
+  if(questionCount < gameLength-1){  
     nextRound();
   }
+  {
+    displayEndGame();
+  }
+
 }
 
 $("#proceed-button").on('click', proceed)
+//#endregion
+//////////////////////////////////
+// GAME OVER ANSWER SECTION
+//////////////////////////////////
+//#region 
+const crownWinner = function(){
+  if(playerScore[0] > playerScore[1])
+  {
+    $winnerText.text("Player 1 Wins")
+  }
+  else if(playerScore[1] > playerScore[0])
+  {
+    $winnerText.text("Player 2 Wins")
+  }
+  else{
+    $winnerText.text("Tie Game")
+  }
+}
+
+const displayScores = function(){
+  $playerOneScore.text(`Player 1\n${totalScores[0]} Points`);
+  $playerOneScore.text(`Player 2\n${totalScores[1]} Points`);
+}
+
+const scoreBreakdow = function(){
+  for(let i = 0; i < playerScore.length; i++){
+    let correct:number = 0;
+    let incorrect:number = 0;
+    let pass:number = 0;
+    for(let score of playerScore[i]){
+      if (score !== undefined){
+        if(score > 0){correct = correct+1}
+        if(score < 0){incorrect = incorrect+1}
+        if(score === 0){pass = pass+1}
+      }
+    }
+    if(i===0){
+      $playerOneBreakdown.text(`Player 1\n
+      Correct: ${correct}\n
+      Incorrect: ${incorrect}\n
+      Pass: ${pass}`)
+    }
+    if(i===1){
+      $playerTwoBreakdown.text(`Player 2\n
+      Correct: ${correct}\n
+      Incorrect: ${incorrect}\n
+      Pass: ${pass}`)
+    }
+  }
+}
+
+const displayEndGame = function(){
+  crownWinner();
+  displayScores();
+  scoreBreakdow();
+  $answerContainer.fadeOut();
+  setTimeout(()=>{$gameOverContainer.fadeIn()}, 1000)
+}
+//#endregion
 
 
 
-  
 
 
 
