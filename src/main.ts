@@ -57,8 +57,6 @@ const $answerBlurb:JQuery = $("#answer-blurb");
 const $gameOverContainer:JQuery = $("#game-over-container")
 const $winnerText:JQuery = $("#winner-text")
 const $playerOneScore:JQuery = $("#player-one-score")
-const $playerTwoScore:JQuery = $("#player-two-score")
-const $gameOverImage:JQuery = $("#game-over-image")
 const $playerOneBreakdown:JQuery = $("#player-one-breakdown")
 const $playerTwoBreakdown:JQuery = $("#player-two-breakdown")
 
@@ -300,6 +298,7 @@ const sumScores = function(){
 
 
 const showAnswer = function() {
+  window.scrollTo(0, 0);
   sumScores();
   // Hide question HTML, show Answer HTML
   $questionContainer.fadeOut();
@@ -317,12 +316,17 @@ const showAnswer = function() {
   $answerBlurb.text(currentQuestion.fields.blurb)
 }
 
-// If game isn't over, reeenters question phase.
-const nextRound = function(){
-  $answerContainer.css("display","none");
+const resetAnswerSubmitted = function(){
   for (let i = 0; i < answerSubmitted.length; i++) {
     answerSubmitted[i] =  false;
   }
+}
+
+// If game isn't over, reeenters question phase.
+const nextRound = function(){
+  window.scrollTo(0, 0);
+  $answerContainer.css("display","none");
+  resetAnswerSubmitted();
   questionCount += 1;
   $questionContainer.css("display","flex");
   switchPlayers();
@@ -333,7 +337,7 @@ const proceed = function() {
   if(questionCount < gameLength-1){  
     nextRound();
   }
-  {
+  else {
     displayEndGame();
   }
 
@@ -346,16 +350,23 @@ $("#proceed-button").on('click', proceed)
 //////////////////////////////////
 //#region 
 const crownWinner = function(){
-  if(playerScore[0] > playerScore[1])
+
+  console.log("player 1 score: " + playerScore[0])
+  console.log("player 2 score: " + playerScore[1])
+  if(+totalScores[0] == +totalScores[1])
+  {
+    $winnerText.text("Draw")
+    return;
+  }
+  if(+totalScores[0] > +totalScores[1])
   {
     $winnerText.text("Player 1 Wins")
+    return;
   }
-  else if(playerScore[1] > playerScore[0])
+  if(+totalScores[1] > +totalScores[0])
   {
     $winnerText.text("Player 2 Wins")
-  }
-  else{
-    $winnerText.text("Tie Game")
+    return;
   }
 }
 
@@ -377,16 +388,20 @@ const scoreBreakdow = function(){
       }
     }
     if(i===0){
-      $playerOneBreakdown.text(`Player 1\n
-      Correct: ${correct}\n
-      Incorrect: ${incorrect}\n
-      Pass: ${pass}`)
+      $playerOneBreakdown.html(`<p>Player 1</p>
+      <ul>
+      <li>Correct: ${correct}</li>
+      <li>Incorrect: ${incorrect}</li>
+      <li>Pass: ${pass}</li>
+      `)
     }
     if(i===1){
-      $playerTwoBreakdown.text(`Player 2\n
-      Correct: ${correct}\n
-      Incorrect: ${incorrect}\n
-      Pass: ${pass}`)
+      $playerTwoBreakdown.html(`<p>Player 2</p>
+      <ul>
+      <li>Correct: ${correct}</li>
+      <li>Incorrect: ${incorrect}</li>
+      <li>Pass: ${pass}</li>
+      `)
     }
   }
 }
@@ -398,6 +413,28 @@ const displayEndGame = function(){
   $answerContainer.fadeOut();
   setTimeout(()=>{$gameOverContainer.fadeIn()}, 1000)
 }
+
+// Set score playerScore array and totalScores to 0.
+const resetScores = function(){
+  for (let i = 0; i < totalScores.length; i++) {
+    for(let score of playerScore[i]){
+      score = 0;
+    }
+    totalScores[i]=0;
+  }
+}
+
+const returnHome = function(){
+  resetAnswerSubmitted();
+  resetScores();
+  activePlayer = 0;
+  $gameOverContainer.fadeOut();
+  $("#game-length").val(gameLength);
+  setTimeout(()=>{$landingContainer.fadeIn()}, 1000)
+}
+
+$("#return-button").on('click', returnHome);
+
 //#endregion
 
 

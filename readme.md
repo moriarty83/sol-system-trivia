@@ -16,7 +16,7 @@ By C. Marshall Moriarty
 
 
 ## Goals/Update Objectives
-- Variable game length (5, 10, 20 questions)
+- COMPLETED! Variable game length. 
 - Save game progress in local memory.
 
 ## Wireframe/Screenshots

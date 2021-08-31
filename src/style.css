@@ -1,30 +1,48 @@
 body{
-  background-color: #262626;
+
+  background-image: url("src/images/deepfieldview.jpeg");
   color: lightgrey;
+  font-family: 'Barrio';
 }
+
+nav{
+  width: 100%;
+  height: 3.5em;
+  background-color: rgba(51, 51, 51, 1);
+}
+
+
 
 .container{
-  background-color: #262626;
-
-  width: 90%;
-  border: 5px solid darkgray;
-  border-radius: 10px;
-  padding:20px;
-  margin: auto;
-}
-
-.subcontainer{
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   
+  height: 100%;
+
+}
+
+.subcontainer{
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(51, 51, 51, 0.9);
+  border: 5px solid darkgray;
+  padding-top: 10px;
+  padding-bottom: 20px;
+
+  
 }
 
 .subcontainer-header{
+  font-size: 1em;
+  text-align: center;
   align-items: center;
   align-content: center;
+  
 }
 
 .subcontainer-body{
@@ -32,15 +50,33 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-
+  padding: 30px;
 }
+
+.player-outcomes{
+  font-size: 1.5em;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.game-img{
+  max-width: 90%;
+  max-height: 10em;
+}
+
 
 
 .question-text{
   background-color: green;
   border: 10px solid blue;
   color: lightgray;
+}
+
+.question-div{
+  width: 100%;
 }
 
 .options-div{
@@ -50,4 +86,32 @@ body{
 .active-player{
   font-size: 2em;
   color: darkgray;
+}
+
+.submit-container{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+
+}
+
+#answer-blurb{
+  width: 90%;
+  font-size: 1em;
+}
+
+#score-breakdown{
+  display: flex;
+  justify-content: space-between;
+}
+
+.radio-div{
+  font-size: 1.2em;
+  padding: 5px;
+}
+
+input[type="radio"] {
+  -ms-transform: scale(2); /* IE 9 */
+  -webkit-transform: scale(2); /* Chrome, Safari, Opera */
+  transform: scale(2);
 }
