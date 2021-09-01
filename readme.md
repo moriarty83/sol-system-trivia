@@ -22,8 +22,14 @@ By C. Marshall Moriarty
 ## Wireframe/Screenshots
 
 ![Wireframe](src/images/TriviaWireframe.jpg)
+![Mobile Screenshot](src/images/mobilelanding.png) ![Mobile Screenshot](src/images/mobilequestion.png) ![Mobile Screenshot](src/images/mobileanswer.png)
+
+## To Do
+- FadeIn/Out on question change.
+- Make radio buttons reset to one.
 
 ## Issues
 - Reload bug: Page seems to unexpected reload for unknown reason resetting game.
 - Copy Editing Needed for Questions
+    - What is the solar system's largest Asteroid: Eros appears twice.
 - Some questions have incorrect images.

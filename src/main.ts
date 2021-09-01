@@ -99,6 +99,7 @@ let answerURL:string;
 /////////////////////////
 //#region 
 // Get questions from API.
+if(triviaData === undefined){
 $.ajax({
   url: `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${token}`
 }).then(function (data) {
@@ -111,9 +112,12 @@ $.ajax({
 }, function (error) {
   console.log('bad request: ', error);
 });
+}
 
 const startGame = () => {
   gameLength = +$("#game-length").val()!;
+  gameLength>20?gameLength=20:gameLength=gameLength;
+  gameLength<1?gameLength=1:gameLength=gameLength;
   shuffle(questions);
   activePlayer = 0;
   answerSubmitted.forEach(element => 
@@ -125,6 +129,7 @@ const startGame = () => {
   displayActivePlayer();
   askQuestion();
   setTimeout(function(){$questionContainer.fadeIn()}, 1000)
+  setTimeout(function(){alert(`It is now Player ${activePlayer+1}'s Turn`)},1000)
 }
 
 $("#start-game").on('click', startGame)
@@ -273,13 +278,22 @@ $("#submit-button").on('click', function(event){
 const fillAnswerText = function (playerIndex:number){
   //Player index should be 0 or 1.
   if(playerScore[playerIndex][questionCount] === 0){
-    return `Player ${playerIndex+1} \n Passed`
+    return `Player ${playerIndex+1}<br>
+      Passed<br>
+      + 0 Points<br>
+      Score: ${totalScores[playerIndex]}`
   }
   else if ((playerScore[playerIndex][questionCount] > 0)){
-    return `Player ${playerIndex+1} \n Correct`
+    return `Player ${playerIndex+1}<br>
+      Answered Correctly<br>
+      + 3 Points<br>
+      Score: ${totalScores[playerIndex]}`
   }
   else{
-    return `Player ${playerIndex+1} \n Wrong`
+    return `Player ${playerIndex+1}<br>
+    Answered Incorrectly<br>
+    - 1 Points<br>
+    Score: ${totalScores[playerIndex]}`
   }
 }
 
@@ -308,8 +322,8 @@ const showAnswer = function() {
   $answerQuestion.text(currentQuestion.fields.question)
 
   // Populates status of player guesses.
-  $playerOneOutcome.text(fillAnswerText(0));
-  $playerTwoOutcome.text(fillAnswerText(1));
+  $playerOneOutcome.html(fillAnswerText(0));
+  $playerTwoOutcome.html(fillAnswerText(1));
   console.log("imageURL = " + currentQuestion.imageURL);
   $answerImage.attr('src', currentQuestion.imageURL!)
   $answerText.text('Answer: ' + currentQuestion.fields.correctAnswer)
