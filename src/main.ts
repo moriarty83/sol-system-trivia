@@ -336,6 +336,17 @@ const resetAnswerSubmitted = function(){
   }
 }
 
+const mercyKilling = function (){
+  if(Math.abs(totalScores[0]-totalScores[1])>15)
+  {
+    return true;
+  }
+  else
+  { 
+    return false;
+  }
+}
+
 // If game isn't over, reeenters question phase.
 const nextRound = function(){
   window.scrollTo(0, 0);
@@ -348,6 +359,9 @@ const nextRound = function(){
 }
 
 const proceed = function() {
+  if(mercyKilling()){
+    displayEndGame();
+  }
   if(questionCount < gameLength-1){  
     nextRound();
   }
