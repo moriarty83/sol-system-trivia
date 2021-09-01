@@ -39,6 +39,7 @@ Sol System Trivia is a game meant for two players on a single mobile phone or ot
 - COMPLETED! Mercy Rule - If one player is more than 15 points ahead, the game
 - COMPLETED! Variable game length. 
 - Save game progress in local memory.
+- Code Optimization - Build Fixed State Machine-style transition functions.
 
 ## Wireframe/Screenshots
 
@@ -48,6 +49,7 @@ Sol System Trivia is a game meant for two players on a single mobile phone or ot
 ## To Do
 - FadeIn/Out on question change.
 - Make radio buttons reset to one.
+- Scroll to top every time turn changes.
 
 ## Issues
 - Reload bug: Page seems to unexpected reload for unknown reason resetting game.

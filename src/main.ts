@@ -194,10 +194,8 @@ function askQuestion(){
   populateAnswerKey(questionCount);
   currentQuestion = triviaData.items[questionCount]
   currentQuestion.imageURL = findImageURL();
-  console.log(currentQuestion.imageURL);
   populateQuestionAnswer(currentQuestion)
-  console.log(currentQuestion);
-  console.log(triviaData)
+
 }
 //#endregion
 ////////////////////////
@@ -256,10 +254,17 @@ function bothAnsweredCheck(){
 }
 
 function switchPlayers(){
+  if(!bothAnsweredCheck()){
+    $questionContainer.fadeOut();
+    setTimeout(()=>{$questionContainer.fadeIn()}, 1000);
+    $("input[id='1']").prop("checked", true);
+    window.scrollTo(0, 0);
+  }
   updateActivePlayer();
   displayActivePlayer();
   askQuestion();
-  alert(`It is now Player ${activePlayer+1}'s Turn`)
+  setTimeout(()=>{alert(`It is now Player ${activePlayer+1}'s Turn`)}, 1001)
+
 }
 
 // Listener for Submit Button.
@@ -317,7 +322,7 @@ const showAnswer = function() {
   // Hide question HTML, show Answer HTML
   $questionContainer.fadeOut();
   // $questionContainer.css("display","none");
-  $answerContainer.fadeIn();
+  
 
   $answerQuestion.text(currentQuestion.fields.question)
 
@@ -328,6 +333,8 @@ const showAnswer = function() {
   $answerImage.attr('src', currentQuestion.imageURL!)
   $answerText.text('Answer: ' + currentQuestion.fields.correctAnswer)
   $answerBlurb.text(currentQuestion.fields.blurb)
+
+  setTimeout(()=>{$answerContainer.fadeIn()}, 1000);
 }
 
 const resetAnswerSubmitted = function(){
@@ -350,10 +357,10 @@ const mercyKilling = function (){
 // If game isn't over, reeenters question phase.
 const nextRound = function(){
   window.scrollTo(0, 0);
-  $answerContainer.css("display","none");
+  $answerContainer.fadeOut();
   resetAnswerSubmitted();
   questionCount += 1;
-  $questionContainer.css("display","flex");
+  setTimeout(()=>{$questionContainer.css("display","flex")}, 1000);
   switchPlayers();
   
 }
@@ -362,7 +369,7 @@ const proceed = function() {
   if(mercyKilling()){
     displayEndGame();
   }
-  if(questionCount < gameLength-1){  
+  else if(questionCount < gameLength-1){  
     nextRound();
   }
   else {
