@@ -67,18 +67,11 @@ nav{
 
 }
 
-@media (max-width: 480px) {
-  .game-img{
-    max-width: 90%;
-    max-height: 10em;
-  }
-}
-
-@media (min-width: 481px) {
-  .game-img{
-    max-width: 90%;
-    max-height: 30em;
-  }
+input[type="number"] {
+  font-family: 'Barrio';
+  width: 3em;
+  height: 1.5em;
+  font-size: 1.2em;
 }
 
 button{
@@ -90,12 +83,8 @@ button{
   font-family: 'Barrio';
 }
 
-input[type="number"] {
-  font-family: 'Barrio';
-  width: 3em;
-  height: 1.5em;
-  font-size: 1.2em;
-}
+
+
 
 .question-text{
   background-color: green;
@@ -183,4 +172,23 @@ footer{
 
 .footer-link, a{
   color: white;
+}
+
+@media (max-width: 480px) {
+  .game-img{
+    max-width: 90%;
+    max-height: 10em;
+  }
+  input[type="radio"] {
+    -ms-transform: scale(1); /* IE 9 */
+    -webkit-transform: scale(1); /* Chrome, Safari, Opera */
+    transform: scale(1);
+  }
+}
+
+@media (min-width: 481px) {
+  .game-img{
+    max-width: 90%;
+    max-height: 30em;
+  }
 }
