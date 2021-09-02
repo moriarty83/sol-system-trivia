@@ -276,20 +276,17 @@ $("#submit-button").on('click', function(event){
 const fillAnswerText = function (playerIndex:number){
   //Player index should be 0 or 1.
   if(playerScore[playerIndex][questionCount] === 0){
-    return `Player ${playerIndex+1}<br>
-      Passed<br>
+    return `Player ${playerIndex+1} - Passed<br>
       + 0 Points<br>
       Score: ${totalScores[playerIndex]}`
   }
   else if ((playerScore[playerIndex][questionCount] > 0)){
-    return `Player ${playerIndex+1}<br>
-      Answered Correctly<br>
+    return `Player ${playerIndex+1} - Correct<br>
       + 3 Points<br>
       Score: ${totalScores[playerIndex]}`
   }
   else{
-    return `Player ${playerIndex+1}<br>
-    Answered Incorrectly<br>
+    return `Player ${playerIndex+1} - Incorrect<br>
     - 1 Points<br>
     Score: ${totalScores[playerIndex]}`
   }

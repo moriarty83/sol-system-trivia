@@ -230,13 +230,13 @@ $("#submit-button").on('click', function (event) {
 var fillAnswerText = function (playerIndex) {
     //Player index should be 0 or 1.
     if (playerScore[playerIndex][questionCount] === 0) {
-        return "Player " + (playerIndex + 1) + "<br>\n      Passed<br>\n      + 0 Points<br>\n      Score: " + totalScores[playerIndex];
+        return "Player " + (playerIndex + 1) + " - Passed<br>\n      + 0 Points<br>\n      Score: " + totalScores[playerIndex];
     }
     else if ((playerScore[playerIndex][questionCount] > 0)) {
-        return "Player " + (playerIndex + 1) + "<br>\n      Answered Correctly<br>\n      + 3 Points<br>\n      Score: " + totalScores[playerIndex];
+        return "Player " + (playerIndex + 1) + " - Correct<br>\n      + 3 Points<br>\n      Score: " + totalScores[playerIndex];
     }
     else {
-        return "Player " + (playerIndex + 1) + "<br>\n    Answered Incorrectly<br>\n    - 1 Points<br>\n    Score: " + totalScores[playerIndex];
+        return "Player " + (playerIndex + 1) + " - Incorrect<br>\n    - 1 Points<br>\n    Score: " + totalScores[playerIndex];
     }
 };
 var sumScores = function () {

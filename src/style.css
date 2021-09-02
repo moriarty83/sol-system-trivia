@@ -184,6 +184,9 @@ footer{
     -webkit-transform: scale(1); /* Chrome, Safari, Opera */
     transform: scale(1);
   }
+  .outcome{
+    padding-bottom: 1em;
+  }
 }
 
 @media (min-width: 481px) {
