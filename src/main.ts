@@ -1,5 +1,3 @@
-import './style.css'
-
 $("#question-container").hide();
 $("#answer-container").hide();
 $("#game-over-container").hide();
