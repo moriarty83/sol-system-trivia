@@ -90,11 +90,6 @@ let activePlayer:number = 0;
 let answerSubmitted:Array<boolean> = [false, false];
 
 /////////////////////////
-// ANSWER VARIABLES
-/////////////////////////
-let answerURL:string;
-
-/////////////////////////
 // LANDING PAGE SECTION
 /////////////////////////
 //#region 
@@ -120,10 +115,10 @@ const startGame = () => {
   gameLength<1?gameLength=1:gameLength=gameLength;
   shuffle(questions);
   activePlayer = 0;
-  answerSubmitted.forEach(element => 
+  for(let i = 0; i<answerSubmitted.length; i++) 
     {
-    element = false;
-    });
+      answerSubmitted[i] = false;
+    };
   questionCount = 0;
   $landingContainer.fadeOut();
   displayActivePlayer();
@@ -160,7 +155,7 @@ function shuffle(array:Array<any>) {
 }
 
 // Assigns value to answer key for scorekeeping purposes.
-function populateAnswerKey(questionIndex:number){
+function populateAnswerKey(){
   // order array get shuffled.
   // Index of value 0 is where correct answer will populate on page.
   shuffle(questionOrder);
@@ -191,7 +186,7 @@ function findImageURL(){
 
 function askQuestion(){
   // Shuffle question order and identify correct answer index. Assing to answer Key.
-  populateAnswerKey(questionCount);
+  populateAnswerKey();
   currentQuestion = triviaData.items[questionCount]
   currentQuestion.imageURL = findImageURL();
   populateQuestionAnswer(currentQuestion)
@@ -452,8 +447,8 @@ const displayEndGame = function(){
 // Set score playerScore array and totalScores to 0.
 const resetScores = function(){
   for (let i = 0; i < totalScores.length; i++) {
-    for(let score of playerScore[i]){
-      score = 0;
+    for(let j=0; j < playerScore.length; j++){
+      playerScore[i][j] = 0;
     }
     totalScores[i]=0;
   }
