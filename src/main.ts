@@ -98,12 +98,12 @@ $.ajax({
 }).then(function (data) {
   triviaData = data;
   // Renders weather data on page.
-  console.log(triviaData.items[0]);
+  // console.log(triviaData.items[0]);
   triviaData = data;
   questions = triviaData.items;  
   $("#start-game").fadeIn();
 }, function (error) {
-  console.log('bad request: ', error);
+  // console.log('bad request: ', error);
 });
 }
 
@@ -157,14 +157,14 @@ function populateAnswerKey(){
   // order array get shuffled.
   // Index of value 0 is where correct answer will populate on page.
   shuffle(questionOrder);
-  console.log(questionOrder);
+  // console.log(questionOrder);
   answerKey[questionCount] = questionOrder.indexOf(0);
-  console.log(answerKey);
+  // console.log(answerKey);
 }
 
 // Assign questions and options to radio inputs.
 function populateQuestionAnswer(question:Question){
-  console.log($questionText);
+  // console.log($questionText);
   $questionText.text(question.fields.question);
   let answers:Array<string> = [question.fields.correctAnswer, question.fields.wrongAnswer1, question.fields.wrongAnswer2, question.fields.wrongAnswer3]
   for (let i = 0; i < answers.length; i++) {
@@ -197,7 +197,7 @@ function askQuestion(){
 // Updates Active Player
 function updateActivePlayer(){
   activePlayer = (activePlayer==0) ? (activePlayer = 1) : (activePlayer=0);
-  console.log("active player = " + activePlayer);
+  // console.log("active player = " + activePlayer);
   displayActivePlayer();
 }
 
@@ -220,28 +220,28 @@ function displayActivePlayer(){
 const checkAnswer = (playerAnswer:number) => 
   {
     if(playerAnswer === 4){
-      console.log("Pass");
+      // console.log("Pass");
       playerScore[activePlayer][questionCount] = 0;
     }
     else if(playerAnswer === answerKey[questionCount]){
-      console.log("Correct");
+      // console.log("Correct");
       playerScore[activePlayer][questionCount] = 3;
     }
     else
     {
-      console.log("Incorrect");
+      // console.log("Incorrect");
       playerScore[activePlayer][questionCount] = -1;
     }
     answerSubmitted[activePlayer] = true;
-    console.log("answerSubmitted: " + answerSubmitted);
-    console.log("both answered: " + bothAnsweredCheck());
+    // console.log("answerSubmitted: " + answerSubmitted);
+    // console.log("both answered: " + bothAnsweredCheck());
     bothAnsweredCheck()? showAnswer() : (switchPlayers());
   }
 
 // Switch Players OR Display Answer Section.
 function bothAnsweredCheck(){
   return answerSubmitted.every((element) => {
-    console.log(element);
+    // console.log(element);
     return element==true})
 }
 
@@ -263,7 +263,7 @@ function switchPlayers(){
 $("#submit-button").on('click', function(event){
   event.preventDefault();
   let $answer = +$("input[name='answer']:checked").val()!;
-  console.log($answer);
+  //console.log($answer);
   checkAnswer($answer);
 })
 
@@ -296,11 +296,11 @@ const sumScores = function(){
     totalScores[i]=0;
     for(let score of playerScore[i]){
       if(score !== undefined){
-        console.log(score);
+        // console.log(score);
         totalScores[i] = totalScores[i] + score;
       }
     }
-    console.log("score: " + totalScores[i])
+    // console.log("score: " + totalScores[i])
   }
 }
 
@@ -318,7 +318,7 @@ const showAnswer = function() {
   // Populates status of player guesses.
   $playerOneOutcome.html(fillAnswerText(0));
   $playerTwoOutcome.html(fillAnswerText(1));
-  console.log("imageURL = " + currentQuestion.imageURL);
+  // console.log("imageURL = " + currentQuestion.imageURL);
   $answerImage.attr('src', currentQuestion.imageURL!)
   $answerText.text('Answer: ' + currentQuestion.fields.correctAnswer)
   $answerBlurb.text(currentQuestion.fields.blurb)
@@ -375,8 +375,8 @@ $("#proceed-button").on('click', proceed)
 //#region 
 const crownWinner = function(){
 
-  console.log("player 1 score: " + playerScore[0])
-  console.log("player 2 score: " + playerScore[1])
+  // console.log("player 1 score: " + playerScore[0])
+  // console.log("player 2 score: " + playerScore[1])
   if(+totalScores[0] == +totalScores[1])
   {
     $winnerText.text("Draw")

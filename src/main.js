@@ -67,12 +67,12 @@ if (triviaData === undefined) {
     }).then(function (data) {
         triviaData = data;
         // Renders weather data on page.
-        console.log(triviaData.items[0]);
+        // console.log(triviaData.items[0]);
         triviaData = data;
         questions = triviaData.items;
         $("#start-game").fadeIn();
     }, function (error) {
-        console.log('bad request: ', error);
+        // console.log('bad request: ', error);
     });
 }
 var startGame = function () {
@@ -121,13 +121,13 @@ function populateAnswerKey() {
     // order array get shuffled.
     // Index of value 0 is where correct answer will populate on page.
     shuffle(questionOrder);
-    console.log(questionOrder);
+    // console.log(questionOrder);
     answerKey[questionCount] = questionOrder.indexOf(0);
-    console.log(answerKey);
+    // console.log(answerKey);
 }
 // Assign questions and options to radio inputs.
 function populateQuestionAnswer(question) {
-    console.log($questionText);
+    // console.log($questionText);
     $questionText.text(question.fields.question);
     var answers = [question.fields.correctAnswer, question.fields.wrongAnswer1, question.fields.wrongAnswer2, question.fields.wrongAnswer3];
     for (var i = 0; i < answers.length; i++) {
@@ -159,7 +159,7 @@ function askQuestion() {
 // Updates Active Player
 function updateActivePlayer() {
     activePlayer = (activePlayer == 0) ? (activePlayer = 1) : (activePlayer = 0);
-    console.log("active player = " + activePlayer);
+    // console.log("active player = " + activePlayer);
     displayActivePlayer();
 }
 // Displays current player text.
@@ -180,26 +180,26 @@ function displayActivePlayer() {
 // Then sets score for that round in the playerScore array.
 var checkAnswer = function (playerAnswer) {
     if (playerAnswer === 4) {
-        console.log("Pass");
+        // console.log("Pass");
         playerScore[activePlayer][questionCount] = 0;
     }
     else if (playerAnswer === answerKey[questionCount]) {
-        console.log("Correct");
+        // console.log("Correct");
         playerScore[activePlayer][questionCount] = 3;
     }
     else {
-        console.log("Incorrect");
+        // console.log("Incorrect");
         playerScore[activePlayer][questionCount] = -1;
     }
     answerSubmitted[activePlayer] = true;
-    console.log("answerSubmitted: " + answerSubmitted);
-    console.log("both answered: " + bothAnsweredCheck());
+    // console.log("answerSubmitted: " + answerSubmitted);
+    // console.log("both answered: " + bothAnsweredCheck());
     bothAnsweredCheck() ? showAnswer() : (switchPlayers());
 };
 // Switch Players OR Display Answer Section.
 function bothAnsweredCheck() {
     return answerSubmitted.every(function (element) {
-        console.log(element);
+        // console.log(element);
         return element == true;
     });
 }
@@ -219,7 +219,7 @@ function switchPlayers() {
 $("#submit-button").on('click', function (event) {
     event.preventDefault();
     var $answer = +$("input[name='answer']:checked").val();
-    console.log($answer);
+    //console.log($answer);
     checkAnswer($answer);
 });
 //#endregion
@@ -245,11 +245,11 @@ var sumScores = function () {
         for (var _i = 0, _a = playerScore[i]; _i < _a.length; _i++) {
             var score = _a[_i];
             if (score !== undefined) {
-                console.log(score);
+                // console.log(score);
                 totalScores[i] = totalScores[i] + score;
             }
         }
-        console.log("score: " + totalScores[i]);
+        // console.log("score: " + totalScores[i])
     }
 };
 var showAnswer = function () {
@@ -262,7 +262,7 @@ var showAnswer = function () {
     // Populates status of player guesses.
     $playerOneOutcome.html(fillAnswerText(0));
     $playerTwoOutcome.html(fillAnswerText(1));
-    console.log("imageURL = " + currentQuestion.imageURL);
+    // console.log("imageURL = " + currentQuestion.imageURL);
     $answerImage.attr('src', currentQuestion.imageURL);
     $answerText.text('Answer: ' + currentQuestion.fields.correctAnswer);
     $answerBlurb.text(currentQuestion.fields.blurb);
@@ -308,8 +308,8 @@ $("#proceed-button").on('click', proceed);
 //////////////////////////////////
 //#region 
 var crownWinner = function () {
-    console.log("player 1 score: " + playerScore[0]);
-    console.log("player 2 score: " + playerScore[1]);
+    // console.log("player 1 score: " + playerScore[0])
+    // console.log("player 2 score: " + playerScore[1])
     if (+totalScores[0] == +totalScores[1]) {
         $winnerText.text("Draw");
         return;

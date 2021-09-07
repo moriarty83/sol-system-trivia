@@ -47,6 +47,7 @@ Sol System Trivia is a game meant for two players on a single mobile phone or ot
 ![Mobile Screenshot](src/images/mobilelanding.png) ![Mobile Screenshot](src/images/mobilequestion.png) ![Mobile Screenshot](src/images/mobileanswer.png)
 
 ## To Do
+- Create Error Page/Text if API fails to load.
 - COMPLETED! FadeIn/Out on question change.
 - COMPLETED! Make radio buttons reset to one.
 - COMPLETED! Scroll to top every time turn changes.
