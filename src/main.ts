@@ -185,10 +185,9 @@ function findImageURL(){
 function askQuestion(){
   // Shuffle question order and identify correct answer index. Assing to answer Key.
   populateAnswerKey();
-  currentQuestion = triviaData.items[questionCount]
+  currentQuestion = triviaData.items[questionCount];
   currentQuestion.imageURL = findImageURL();
-  populateQuestionAnswer(currentQuestion)
-
+  populateQuestionAnswer(currentQuestion);
 }
 //#endregion
 ////////////////////////
@@ -250,7 +249,7 @@ function switchPlayers(){
   if(!bothAnsweredCheck()){
     $questionContainer.fadeOut();
     setTimeout(()=>{$questionContainer.fadeIn()}, 1000);
-    $("input[id='1']").prop("checked", true);
+    $("input[name=answer]").first().prop("checked", true);
     window.scrollTo(0, 0);
   }
   updateActivePlayer();

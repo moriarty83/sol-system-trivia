@@ -207,7 +207,7 @@ function switchPlayers() {
     if (!bothAnsweredCheck()) {
         $questionContainer.fadeOut();
         setTimeout(function () { $questionContainer.fadeIn(); }, 1000);
-        $("input[id='1']").prop("checked", true);
+        $("input[name=answer]").first().prop("checked", true);
         window.scrollTo(0, 0);
     }
     updateActivePlayer();
