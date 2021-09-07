@@ -12,7 +12,7 @@ By C. Marshall Moriarty
 
 
 ## How to Play
-Sol System Trivia is a game meant for two players on a single mobile phone or other device. A phone is suggested becaues it's easily passed betwee players. 
+Sol System Trivia is a game meant for two players on a single mobile phone or other device. A phone is suggested becaues it's easily passed between players. 
 
 1. Once a game length is specified and game begun, a Player 1 is prompted with a question. They select an answer and submit it, then hands the device to Player 2 to submit an answer to the same question. 
 
