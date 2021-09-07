@@ -14,13 +14,11 @@ By C. Marshall Moriarty
 ## How to Play
 Sol System Trivia is a game meant for two players on a single mobile phone or other device. A phone is suggested becaues it's easily passed betwee players. 
 
-1. Once a game length is specified and game begun, a Player 1 is prompted with a question. They select an answer and submit it. 
+1. Once a game length is specified and game begun, a Player 1 is prompted with a question. They select an answer and submit it, then hands the device to Player 2 to submit an answer to the same question. 
 
-2. Player 1 then hands the device to Player 2 to submit an answer to the same question. 
+2. Once both players have answered the question, the answer is provided for both players to look at, points asigned. The Proceed button is pressed, the process begins anew with a new question being prompted for Player 1. 
 
-3. Once both players have answered the question, the answer is provided for both players to look at, points asigned. The Proceed button is pressed, the process begins anew with a new question being prompted for Player 1. 
-
-5. When the number of questions equal to the Game Length that was set is reached, the game is over. Players are shown a synposis screen and they can then return to the home screen to play again.
+3. When the number of questions equal to the Game Length that was set is reached, the game is over. Players are shown a synposis screen and they can then return to the home screen to play again.
 
 #### Scoring
 - Correct Answer: +3 Points
