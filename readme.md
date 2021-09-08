@@ -1,6 +1,7 @@
 # Sol System Trivia
 By C. Marshall Moriarty
 ### A two player, 20 question trivia game about the Solar System.
+https://moriarty83.github.io/sol-system-trivia/
 
 ## Features
 - Games of 1-20 questions about the Solar System
